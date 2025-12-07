@@ -1,19 +1,17 @@
 <!DOCTYPE html>
+
 <html lang="az">
 <head>
 <meta charset="UTF-8">
-<title>Bakburila News Slideshow</title>
+<title>Bakburila 10 Slides</title>
 <style>
     body { margin: 0; padding: 0; width: 1080px; height: 1920px; overflow: hidden; font-family: Arial, sans-serif; color: white; }
     #bgvideo { position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%; object-fit: cover; filter: brightness(0.35); z-index: -2; }
     .header { width: 100%; padding: 30px 0 20px 0; text-align: center; font-size: 62px; font-weight: 900; background: rgba(216, 0, 0, 0.9); letter-spacing: 4px; z-index: 10; position: relative; }
     .news-container { padding: 40px; height: 1500px; display: flex; align-items: center; justify-content: center; position: relative; }
-    .news { background: rgba(0,0,0,0.55); padding: 30px; border-left: 12px solid #ff2d2d; border-radius: 16px; font-size: 38px; line-height: 1.35; width: 100%; max-width: 950px; opacity: 0; position: absolute; transition: opacity 1.2s; }
+    .news { background: rgba(0,0,0,0.55); padding: 0; border-left: 12px solid #ff2d2d; border-radius: 16px; width: 100%; max-width: 950px; opacity: 0; position: absolute; transition: opacity 1.2s; display: flex; align-items: center; justify-content: center; }
     .news.active { opacity: 1; }
-    .news img { width: 100%; max-height: 460px; object-fit: cover; border-radius: 14px; margin-bottom: 25px; }
-    .ticker { position: absolute; bottom: 0; width: 100%; height: 110px; background: rgba(216,0,0,0.95); overflow: hidden; display: flex; align-items: center; z-index: 100; }
-    .ticker p { white-space: nowrap; font-size: 46px; font-weight: bold; animation: scroll 18s linear infinite; color: #fff; padding-left: 100%; }
-    @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+    .news img { width: 100%; height: 100%; object-fit: cover; border-radius: 14px; }
 </style>
 </head>
 <body>
@@ -25,56 +23,44 @@
     <div class="news" id="news3"></div>
     <div class="news" id="news4"></div>
     <div class="news" id="news5"></div>
+    <div class="news" id="news6"></div>
+    <div class="news" id="news7"></div>
+    <div class="news" id="news8"></div>
+    <div class="news" id="news9"></div>
+    <div class="news" id="news10"></div>
 </div>
-<div class="ticker"><p>XƏBƏRLƏR HƏR 10 DƏQİQƏDƏN BİR YENİLƏNİR! İZLƏ VƏ PAYLAŞ!</p></div>
-
 <script>
-/* ================== НОВОСТИ С ДЛИТЕЛЬНОСТЬЮ ================== */
-/* duration указана в миллисекундах (10000 = 10 секунд) */
-const newsData = [
-    { img: "https://news.day.az/media/2025/12/05/800x550/0c59ac03-8301-4fd2-8ce7-f529463c182c.jpg", text: "Xəbər verdiyimiz kimi, Lökbatanın "Qobu Park-1" yaşayış massivində bu gün səhər saatlarında baş verən güclü partlayış və yanğın faciə ilə nəticələnib.
-", duration: 5000 },
-    { img: "https://news.day.az/media/2025/11/03/800x550/1299778.jpg", text: "Son günlər Azərbaycanın bazarını bürüyən Monqolustandan gətirilən qoyun əti geniş müzakirələrə səbəb olub.
-
-Vətəndaşlar həmin ətin islami qaydalara uyğun kəsilib-kəsilmədiyini və qiymətini müzakirə edirlər.", duration: 5000 },
-    { img: "https://sfera.az/_next/image?url=https%3A%2F%2Fcdn.sfera.az%2Ffile%2Farticles%2F2025%2F12%2F07%2F1765092444_1765081665_e19a61f78da05c78af3209d0232e746f.jpeg", text: "2025-ci ilin dekabrı bəzi bürclər üçün xüsusilə uğurlu olacaq.
-
- 
-
-Bizim.Media xəbər verir ki, astroloqlar bu ay xoş məqamlar, yeni imkanlar və əhəmiyyətli dəyişikliklər yaşayacaq bürcləri artıq müəyyən ediblər.", duration: 5000 },
-    { img: "https://example.com/photo4.jpg", text: "Текст четвертой новости", duration: 15000 },
-    { img: "https://example.com/photo5.jpg", text: "Текст пятой новости", duration: 9000 }
+/* ================== СЛАЙДЫ ================== */
+const slides = [
+    { img: "https://via.placeholder.com/900x1600?text=Slide+1", duration: 5000 },
+    { img: "https://via.placeholder.com/900x1600?text=Slide+2", duration: 5000 },
+    { img: "https://via.placeholder.com/900x1600?text=Slide+3", duration: 5000 },
+    { img: "https://via.placeholder.com/900x1600?text=Slide+4", duration: 5000 },
+    { img: "https://via.placeholder.com/900x1600?text=Slide+5", duration: 5000 },
+    { img: "https://via.placeholder.com/900x1600?text=Slide+6", duration: 5000 },
+    { img: "https://via.placeholder.com/900x1600?text=Slide+7", duration: 5000 },
+    { img: "https://via.placeholder.com/900x1600?text=Slide+8", duration: 5000 },
+    { img: "https://via.placeholder.com/900x1600?text=Slide+9", duration: 5000 },
+    { img: "https://via.placeholder.com/900x1600?text=Slide+10", duration: 5000 }
 ];
 
-/* ================== РЕНДЕР НОВОСТЕЙ ================== */
-function renderNews() {
-    newsData.forEach((n, i) => {
-        const box = document.getElementById("news" + (i + 1));
-        box.innerHTML = `
-            ${n.img ? `<img src="${n.img}">` : ""}
-            <b>${n.text}</b>
-        `;
-    });
+function renderSlides() {
+slides.forEach((slide, i) => {
+const box = document.getElementById("news" + (i + 1));
+box.innerHTML = `<img src="${slide.img}">`;
+});
 }
-renderNews();
+renderSlides();
 
-/* ================== СЛАЙД-ШОУ С ИНДИВИДУАЛЬНОЙ ДЛИТЕЛЬНОСТЬЮ ================== */
 let slideIndex = 0;
-
 function showNextSlide() {
-    // Скрываем все слайды
-    newsData.forEach((_, i) => document.getElementById("news" + (i + 1)).classList.remove("active"));
-    // Показываем текущий
-    document.getElementById("news" + (slideIndex + 1)).classList.add("active");
-    // Берем длительность текущего слайда
-    const duration = newsData[slideIndex].duration;
-    // Переходим к следующему слайду
-    slideIndex = (slideIndex + 1) % newsData.length;
-    setTimeout(showNextSlide, duration);
+slides.forEach((_, i) => document.getElementById("news" + (i + 1)).classList.remove("active"));
+document.getElementById("news" + (slideIndex + 1)).classList.add("active");
+const duration = slides[slideIndex].duration;
+slideIndex = (slideIndex + 1) % slides.length;
+setTimeout(showNextSlide, duration);
 }
+showNextSlide(); </script>
 
-// Старт слайд-шоу
-showNextSlide();
-</script>
 </body>
 </html>
