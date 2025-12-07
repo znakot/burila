@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="az">
 <head>
 <meta charset="UTF-8">
@@ -9,7 +8,7 @@
     #bgvideo { position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%; object-fit: cover; filter: brightness(0.35); z-index: -2; }
     .header { width: 100%; padding: 30px 0 20px 0; text-align: center; font-size: 62px; font-weight: 900; background: rgba(216, 0, 0, 0.9); letter-spacing: 4px; z-index: 10; position: relative; }
     .news-container { padding: 40px; height: 1500px; display: flex; align-items: center; justify-content: center; position: relative; }
-    .news { background: rgba(0,0,0,0.55); padding: 0; border-left: 12px solid #ff2d2d; border-radius: 16px; width: 100%; max-width: 950px; opacity: 0; position: absolute; transition: opacity 1.2s; display: flex; align-items: center; justify-content: center; }
+    .news { background: rgba(0,0,0,0.55); padding: 0; border-left: 12px solid #ff2d2d; border-radius: 16px; width: 100%; max-width: 950px; opacity: 0; position: absolute; transition: opacity 1s; display: flex; align-items: center; justify-content: center; }
     .news.active { opacity: 1; }
     .news img { width: 100%; height: 100%; object-fit: cover; border-radius: 14px; }
 </style>
@@ -18,7 +17,7 @@
 <video autoplay muted loop id="bgvideo"><source src="background.mp4" type="video/mp4"></video>
 <div class="header">SON XƏBƏR:</div>
 <div class="news-container">
-    <div class="news active" id="news1"></div>
+    <div class="news" id="news1"></div>
     <div class="news" id="news2"></div>
     <div class="news" id="news3"></div>
     <div class="news" id="news4"></div>
@@ -30,37 +29,37 @@
     <div class="news" id="news10"></div>
 </div>
 <script>
-/* ================== СЛАЙДЫ ================== */
+// Массив слайдов
 const slides = [
-    { img: "https://news.day.az/media/2025/11/03/800x550/1299778.jpg?text=Slide+1", duration: 5000 },
-    { img: "https://news.day.az/media/2025/12/07/800x550/abbas_araqci_sefer.jpg?text=Slide+2", duration: 5000 },
-    { img: "https://news.day.az/media/2025/11/03/800x550/1299778.jpg?text=Slide+3", duration: 5000 },
-    { img: "https://news.day.az/media/2025/12/07/800x550/abbas_araqci_sefer.jpg?text=Slide+4", duration: 5000 },
-    { img: "https://news.day.az/media/2025/11/03/800x550/1299778.jpg", duration: 5000 },
-    { img: "https://news.day.az/media/2025/12/07/800x550/abbas_araqci_sefer.jpg?text=Slide+6", duration: 5000 },
-    { img: "https://news.day.az/media/2025/11/03/800x550/1299778.jpg", duration: 5000 },
-    { img: "https://news.day.az/media/2025/12/07/800x550/abbas_araqci_sefer.jpg?text=Slide+8", duration: 5000 },
-    { img: "https://news.day.az/media/2025/11/03/800x550/1299778.jpg", duration: 5000 },
-    { img: "https://news.day.az/media/2025/12/07/800x550/abbas_araqci_sefer.jpg?text=Slide+10", duration: 5000 }
+    { img: "https://news.day.az/media/2025/12/07/800x550/abbas_araqci_sefer.jpg?text=Slide+1", duration: 5000 },
+    { img: "https://news.day.az/media/2025/12/07/800x550/20251206_fbd001.png0?text=Slide+2", duration: 5000 },
+    { img: "https://news.day.az/media/2025/12/07/800x550/abbas_araqci_sefer.jpg?text=Slide+3", duration: 5000 },
+    { img: "https://news.day.az/media/2025/12/07/800x550/20251206_fbd001.png?text=Slide+4", duration: 5000 },
+    { img: "https://news.day.az/media/2025/12/07/800x550/abbas_araqci_sefer.jpg?text=Slide+5", duration: 5000 },
+    { img: "https://news.day.az/media/2025/12/07/800x550/20251206_fbd001.png?text=Slide+6", duration: 5000 },
+    { img: "https://news.day.az/media/2025/12/07/800x550/abbas_araqci_sefer.jpg?text=Slide+7", duration: 5000 },
+    { img: "https://news.day.az/media/2025/12/07/800x550/20251206_fbd001.png?text=Slide+8", duration: 5000 },
+    { img: "https://news.day.az/media/2025/12/07/800x550/abbas_araqci_sefer.jpg?text=Slide+9", duration: 5000 },
+    { img: "https://news.day.az/media/2025/12/07/800x550/20251206_fbd001.png?text=Slide+10", duration: 5000 }
 ];
 
-function renderSlides() {
+// Рендерим картинки
 slides.forEach((slide, i) => {
-const box = document.getElementById("news" + (i + 1));
-box.innerHTML = `<img src="${slide.img}">`;
+    document.getElementById("news" + (i + 1)).innerHTML = `<img src="${slide.img}">`;
 });
-}
-renderSlides();
 
+// Запуск слайд-шоу
 let slideIndex = 0;
 function showNextSlide() {
-slides.forEach((_, i) => document.getElementById("news" + (i + 1)).classList.remove("active"));
-document.getElementById("news" + (slideIndex + 1)).classList.add("active");
-const duration = slides[slideIndex].duration;
-slideIndex = (slideIndex + 1) % slides.length;
-setTimeout(showNextSlide, duration);
+    slides.forEach((_, i) => document.getElementById("news" + (i + 1)).classList.remove("active"));
+    document.getElementById("news" + (slideIndex + 1)).classList.add("active");
+    const duration = slides[slideIndex].duration;
+    slideIndex = (slideIndex + 1) % slides.length;
+    setTimeout(showNextSlide, duration);
 }
-showNextSlide(); </script>
 
+// Стартуем слайд-шоу через небольшую задержку, чтобы DOM успел прогрузиться
+window.onload = () => showNextSlide();
+</script>
 </body>
 </html>
